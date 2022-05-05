@@ -7,9 +7,11 @@ body{
     background-color: #214872;
     color: #F1F3F9;
 }
+
 .nav a{
     color: #ffffff;
 }
+
 .nav a:hover{
     color: #ffffff;
 }
@@ -24,24 +26,27 @@ a:hover{
 }
 
 .card {
-    border-radius: 2px;
+    border-radius: 0.5px;
     box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
     transition: all 0.3s ease-out;
-    border-color: #ffffff;
+    border:none;
   }
-  .card p {
+
+.card p {
     color: #8990a5;
     font-size: 16px;
-  }
+}
  
 .card-header{
     background-color: #ffffff;
-    border: none;
+    border-bottom: none;
 }
+
 .btn{
     background-color: #092442;
     color: #ffffff;
 }
+
 .btn:hover{
     background-color: #092442;
     color: #ffffff;
