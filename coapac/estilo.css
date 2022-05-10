@@ -6,6 +6,7 @@ body{
 .menu{
     background-color: #214872;
     color: #F1F3F9;
+    box-shadow: 5px 5px 10px rgba(50, 50, 50, 0.22);
 }
 
 .nav a{
