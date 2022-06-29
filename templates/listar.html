@@ -1,0 +1,134 @@
+{% extends "bases\base.html" %}
+
+{% block titulo %}
+Listagem
+{% endblock %}
+
+{% block header%}
+Controle de Saída de Objetos
+{% endblock %}
+
+{% block conteudo %}
+<section>
+    <!--Botão de pesquisa-->
+    <div class="row"> 
+      <div class="col-md-4">
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 my-5 ">
+        <!--Tabela de listagem-->
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>objeto</th>
+                <th>Data de Empréstimo</th>
+                <th>Data de Devolução</th>
+                <th>Status</th>
+                <th >Responsável</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Project Apollo</td>
+                <td>Piloto</td>
+                <td>01/01/2021</td>
+                <td>31/06/2021</td>
+                <td><span class="badge bg-success">Devolvido</span></td>
+                <td>Carl Jenkins</td>
+              </tr>
+              <tr>
+                <td>Project Fireball</td>
+                <td>Projetor</td>
+                <td>01/01/2021</td>
+                <td>31/06/2021</td>
+                <td><span class="badge bg-danger">Atrasado</span></td>
+                <td>Bertha Martin</td>
+              </tr>
+              <tr>
+                <td>Project Hades</td>
+                <td>Projetor</td>
+                <td>01/01/2021</td>
+                <td>31/06/2021</td>
+                <td><span class="badge bg-success">Devolvido</span></td>
+                <td>Stacie Hall</td>
+              </tr>
+              <tr>
+                <td>Project Nitro</td>
+                <td>Piloto</td>
+                <td>01/01/2021</td>
+                <td>31/06/2021</td>
+                <td><span class="badge bg-primary">Novo</span></td>
+                <td>Carl Jenkins</td>
+              </tr>
+              <tr>
+                <td>Project Phoenix</td>
+                <td>Apagador</td>
+                <td>01/01/2021</td>
+                <td>31/06/2021</td>
+                <td><span class="badge bg-success">Devolvido</span></td>
+                <td>Bertha Martin</td>
+              </tr>
+              <tr>
+                <td>Project X</td>
+                <td>Apagador</td>
+                <td>01/01/2021</td>
+                <td>31/06/2021</td>
+                <td><span class="badge bg-primary">Novo</span></td>
+                <td>Stacie Hall</td>
+              </tr>
+              <tr>
+                <td>Project Fireball</td>
+                <td>Projetor</td>
+                <td>01/01/2021</td>
+                <td>31/06/2021</td>
+                <td><span class="badge bg-danger">Atrasado</span></td>
+                <td>Bertha Martin</td>
+              </tr>
+              <tr>
+                <td>Project Hades</td>
+                <td>Projetor</td>
+                <td>01/01/2021</td>
+                <td>31/06/2021</td>
+                <td><span class="badge bg-success">Devolvido</span></td>
+                <td>Stacie Hall</td>
+              </tr>
+              <tr>
+                <td>Project Nitro</td>
+                <td>Piloto</td>
+                <td>01/01/2021</td>
+                <td>31/06/2021</td>
+                <td><span class="badge bg-primary">Novo</span></td>
+                <td>Carl Jenkins</td>
+              </tr>
+              <tr>
+                <td>Project Phoenix</td>
+                <td>Apagador</td>
+                <td>01/01/2021</td>
+                <td>31/06/2021</td>
+                <td><span class="badge bg-success">Devolvido</span></td>
+                <td>Bertha Martin</td>
+              </tr>
+              <tr>
+                <td>Project X</td>
+                <td>Apagador</td>
+                <td>01/01/2021</td>
+                <td>31/06/2021</td>
+                <td><span class="badge bg-primary">Novo</span></td>
+                <td>Stacie Hall</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+{% endblock %}
