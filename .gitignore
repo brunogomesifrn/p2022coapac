@@ -5,15 +5,6 @@
 __pycache__
 
 
-media/* 
-media/event_images/* 
-!media/event_images/default/*
-!media/event_images/certificate/*
-
-static/temp/*
-!static/temp/temp_db/
-
-
 **/**/migrations/*
 **/migrations/*
 
