@@ -4,29 +4,29 @@ from pyexpat import model
 from django.db import models
 
 # Create your models here.
+
+class Tipo(models.Model):
+    nome = models.CharField('Nome', max_length=100)
+
+class Objeto(models.Model):
+    nome = models.CharField('Nome', max_length=100) 
+    prazo = models.IntegerField("Prazo")
+    tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE)
+
 class Usuario(models.Model):
     matricula = models.CharField('Matricula',max_length=14, primary_key=True)
     nome = models.CharField('Nome', max_length=100)
     senha = models.CharField('Senha', max_length=40)
     telefone = models.CharField('Telefone', max_length=9)
-
+    objeto = models.ManyToManyField(Objeto)
+    
 
 class Emprestimo(models.Model):
-    id = models.AutoField(primary_key=True)
-    quantidade = models.IntegerField
-    data_emprestimo = models.DateTimeField
-    data_devolucao = models.DateTimeField
-    observacao = models. TextField
-
-class Tipo(models.Model):
-    id = models.AutoField(primary_key=True) 
-    nome = models.CharField('Nome', max_length=100)
-
-class Objeto(models.Model):
-    id = models.AutoField(primary_key=True) 
-    nome = models.CharField('Nome', max_length=100) 
-    prazo = models.IntegerField
-
+    quantidade = models.IntegerField("Quantidade")
+    data_emprestimo = models.DateTimeField("Data de Empréstimo")
+    data_devolucao = models.DateTimeField("Data de Devolução")
+    observacao = models.TextField("Observação")
+    objeto = models.ManyToManyField(Objeto)    
 '''
 CREATE DATABASE IF NOT EXISTS coapac;
 
