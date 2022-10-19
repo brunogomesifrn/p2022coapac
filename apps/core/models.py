@@ -7,11 +7,15 @@ from django.db import models
 
 class Tipo(models.Model):
     nome = models.CharField('Nome', max_length=100)
+    def __str__(self):
+        return self.nome
 
 class Objeto(models.Model):
     nome = models.CharField('Nome', max_length=100) 
     prazo = models.IntegerField("Prazo")
     tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.nome
 
 class Usuario(models.Model):
     matricula = models.CharField('Matricula',max_length=14, primary_key=True)
