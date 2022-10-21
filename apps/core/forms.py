@@ -13,22 +13,18 @@ class FormObjeto(ModelForm):
         widgets = {
             'tipo': forms.RadioSelect(),
         }
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.fields['area'].empty_label = None
 
 class FormUsuario(ModelForm):
     class Meta: 
         model:Usuario
-        fields:['matricula, nome, senha, telefone, objeto']
-        widgets = {
-            'objeto': forms.CheckboxSelectMultiple(),
-        }
+        fields:['matricula, nome, senha, telefone']
+    
 
 class FormEmprestimo(ModelForm):
     class Meta: 
         model:Emprestimo
-        fields:['quantidade, data_emprestimo, data_devolucao, observacao, objeto']
+        fields:['quantidade, data_emprestimo, data_devolucao, observacao, objeto, usuario']
         widgets = {
             'objeto': forms.CheckboxSelectMultiple(),
+            'usuario': forms.RadioSelect()
         }
