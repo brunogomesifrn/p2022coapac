@@ -16,14 +16,17 @@ Including another URLconf
 import imp
 from django.contrib import admin
 from django.urls import path
-from apps.core.views import index, emprestimo, devolucao, listar, novo
+from django.contrib.auth.views import LoginView, LogoutView
+from apps.core.views import emprestimo, devolucao, listar, novo, perfil
 
 
 urlpatterns = [
-    path('', index, name="inicio"),
+    path('', LoginView.as_view(), name='login'),
+    path('perfil/',perfil, name="perfil"),
     path('admin/', admin.site.urls),
     path('emprestimo/',emprestimo, name="emprestimo"),
     path('devolução/', devolucao, name="devolucao"),
     path('listar/', listar, name="listar"),
     path('novo/', novo, name="novo"),
+    path("logout/", LogoutView.as_view(), name="logout"),
 ]

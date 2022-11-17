@@ -31,7 +31,7 @@ class Emprestimo(models.Model):
     data_emprestimo = models.DateTimeField("Data de Empréstimo")
     data_devolucao = models.DateTimeField("Data de Devolução")
     observacao = models.TextField("Observação")
-    usuario = models.ForeignKey(Usuario, on_delete=models.SET DEFAULT)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     objeto = models.ManyToManyField(Objeto)  
     def __str__(self):
         return self.objeto

@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
-def index(request):
+@login_required
+def perfil(request):
     return render(request, 'index.html')
 
 def emprestimo(request):
