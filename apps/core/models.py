@@ -1,9 +1,5 @@
-from mailbox import NotEmptyError
-from multiprocessing.reduction import send_handle
-from pyexpat import model
 from django.db import models
-
-# Create your models here.
+from django.contrib.auth.models import AbstractUser
 
 class Tipo(models.Model):
     nome = models.CharField('Nome', max_length=100)
@@ -13,18 +9,30 @@ class Tipo(models.Model):
 class Objeto(models.Model):
     nome = models.CharField('Nome', max_length=100) 
     prazo = models.IntegerField("Prazo")
-    tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE)
+    tipos = models.ForeignKey(Tipo, on_delete=models.CASCADE)
+    
     def __str__(self):
         return self.nome
 
-class Usuario(models.Model):
+class Usuario(AbstractUser):
     matricula = models.CharField('Matricula',max_length=14, primary_key=True)
     nome = models.CharField('Nome', max_length=100)
+    email = models.EmailField('Email')
     senha = models.CharField('Senha', max_length=40)
     telefone = models.CharField('Telefone', max_length=9)
     def __str__(self):
         return self.nome
-    
+
+    USERNAME_FIELD = 'matricula'
+
+    class Meta:
+        permissions = [
+            ("aluno","Permissão para usuários Aluno, pode consultar situação de empréstimos"),
+            ("servidor","Permissão para usuários Servidor, pode consultar situação de empréstimos"),
+            ("coapac","Permissão para usuários COAPAC, pode gerenciar empréstimos, objetos, gerenciar tipos_objetos, gerenciar status e gerar relatórios"),
+            ("administrador","Permissão para usuários Administrador, pode gerenciar empréstimos, objetos, gerenciar tipos_objetos, gerenciar status e gerar relatórios")
+                        
+        ]  
 
 class Emprestimo(models.Model):
     quantidade = models.IntegerField("Quantidade")

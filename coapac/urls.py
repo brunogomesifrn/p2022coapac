@@ -13,20 +13,43 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import imp
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
-from apps.core.views import emprestimo, devolucao, listar, novo, perfil
-
+from apps.core.views import emprestimo, devolucao, emprestimo_listar,emprestimo_remover, emprestimo_cadastro, emprestimo_editar, perfil, autenticacao, desconectar, registro, usuario_listar,usuario_remover
+from apps.core.views import objeto_cadastrar, obejto_remover,objeto_editar, objeto_listar, tipo_cadastrar,tipo_editar,tipo_listar, tipo_remover, emprestimo_editar,emprestimo_remover
 
 urlpatterns = [
-    path('', LoginView.as_view(), name='login'),
+    #Objetos
+    path('objetos/', objeto_listar, name='objeto_listar'),
+    path('cadastrar_objetos/', objeto_cadastrar, name='objetos_cadastrar'),
+    path('editar_objetos/<int:id>/', objeto_editar, name='objeto_editar'),
+    path('deletar_objetos/<int:id>/', obejto_remover, name='obejto_remover'),
+
+    #Tipo
+    path('tipos/', tipo_listar, name='tipo_listar'),
+    path('cadastrar_tipos/', tipo_cadastrar, name='tipo_cadastrar'),
+    path('atualizar_tipos/<int:id>/', tipo_editar, name='tipo_editar'),
+    path('deletar_tipos/<int:id>/', tipo_remover, name='tipo_remover'),
+
+    #Emprestimos
+    path('emprestimo/',emprestimo, name="emprestimo"),
+    path('listar/', emprestimo_listar, name="emprestimo_listar"),
+    path('novo/',emprestimo_cadastro, name="emprestimo_cadastro"),
+    path('atualizar_emprestimo/<int:id>/', emprestimo_editar, name='emprestimo_editar'),
+    path('deletar_emprestimo/<int:id>/',emprestimo_remover, name='emprestimo_remover'),
+
+    #Autenticação
+    path("logout/", desconectar, name="logout"),
+    path('', autenticacao, name='login'),
+
+    #Outros
     path('perfil/',perfil, name="perfil"),
     path('admin/', admin.site.urls),
-    path('emprestimo/',emprestimo, name="emprestimo"),
     path('devolução/', devolucao, name="devolucao"),
-    path('listar/', listar, name="listar"),
-    path('novo/', novo, name="novo"),
-    path("logout/", LogoutView.as_view(), name="logout"),
+    path('registro/', registro, name='registro'),
+
+    #Usuario
+    path('usuario_listar/', usuario_listar, name='usuario_listar'),
+    path('deletar_usuario/<int:id>/', usuario_remover, name='usuario_remover'),
 ]

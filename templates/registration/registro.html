@@ -1,0 +1,22 @@
+{% extends "bases\base.html" %}
+
+{% block titulo %}
+Objetos
+{% endblock %}
+
+{% block header%}
+Pagina de Objetos
+{% endblock %}
+
+{% block conteudo %}
+<form method="post">
+    {% csrf_token %}
+    <p>{{ form.nome.label_tag }} {{ form.nome }}</p>
+    <p>{{ form.email.label_tag }} {{ form.email }}</p>
+    <p>{{ form.telefone.label_tag }} {{ form.telefone }}</p>
+    <p>{{ form.matricula.label_tag }} {{ form.matricula }}</p>
+    <p>{{ form.senha.label_tag }} {{ form.senha }}</p>
+    <input type="submit" value="Cadastrar">
+    </form>
+
+{% endblock %}
