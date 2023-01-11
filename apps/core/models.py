@@ -9,7 +9,7 @@ class Tipo(models.Model):
 class Objeto(models.Model):
     nome = models.CharField('Nome', max_length=100) 
     prazo = models.IntegerField("Prazo")
-    tipos = models.ForeignKey(Tipo, on_delete=models.CASCADE)
+    tipos = models.ForeignKey(Tipo, on_delete=models.PROTECT)
     
     def __str__(self):
         return self.nome
@@ -18,8 +18,9 @@ class Usuario(AbstractUser):
     matricula = models.CharField('Matricula',max_length=14, primary_key=True)
     nome = models.CharField('Nome', max_length=100)
     email = models.EmailField('Email')
-    senha = models.CharField('Senha', max_length=40)
     telefone = models.CharField('Telefone', max_length=9)
+    username = models.CharField(null=True, max_length=10)
+
     def __str__(self):
         return self.nome
 
@@ -35,12 +36,13 @@ class Usuario(AbstractUser):
         ]  
 
 class Emprestimo(models.Model):
-    quantidade = models.IntegerField("Quantidade")
-    data_emprestimo = models.DateTimeField("Data de Empréstimo")
-    data_devolucao = models.DateTimeField("Data de Devolução")
+    matricula = models.CharField("'Matricula", max_length=15)
+    data_emprestimo = models.DateField(auto_now_add=True)
+    data_devolucao = models.DateField("Data de Devolução", null=True)
     observacao = models.TextField("Observação")
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    objeto = models.ManyToManyField(Objeto)  
+    responsavel = models.ForeignKey(Usuario, on_delete=models.PROTECT)
+    objeto = models.ForeignKey(Objeto, on_delete=models.PROTECT)
+
     def __str__(self):
         return self.objeto
 '''

@@ -1,6 +1,8 @@
 from django.forms import ModelForm
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .models import Tipo, Objeto, Usuario, Emprestimo
+
 class FormTipo(ModelForm):
     class Meta():
         model = Tipo
@@ -14,18 +16,16 @@ class FormObjeto(ModelForm):
             'tipo': forms.RadioSelect(), 
         }
         
-
-class FormUsuario(ModelForm):
+class FormUsuario(UserCreationForm):
     class Meta(): 
         model=Usuario
-        fields=['matricula', 'nome', 'email', 'senha', 'telefone']
+        fields=['matricula', 'nome', 'email', 'password1', 'password2', 'telefone']
     
 
 class FormEmprestimo(ModelForm):
     class Meta():
         model=Emprestimo
-        fields=['quantidade', 'data_emprestimo', 'data_devolucao', 'observacao', 'objeto', 'usuario']
+        fields=['matricula', 'observacao', 'objeto']
         widgets = {
-            'usuario': forms.RadioSelect(),
             'objeto': forms.CheckboxSelectMultiple(),
             }

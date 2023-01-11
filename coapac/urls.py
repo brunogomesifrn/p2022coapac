@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
-from apps.core.views import emprestimo, devolucao, emprestimo_listar,emprestimo_remover, emprestimo_cadastro, emprestimo_editar, perfil, autenticacao, desconectar, registro, usuario_listar,usuario_remover
+from apps.core.views import emprestimo, devolucao, devolver, emprestimo_listar,emprestimo_remover, emprestimo_cadastro, emprestimo_editar, perfil, autenticacao, desconectar, registro, usuario_listar,usuario_remover
 from apps.core.views import objeto_cadastrar, obejto_remover,objeto_editar, objeto_listar, tipo_cadastrar,tipo_editar,tipo_listar, tipo_remover, emprestimo_editar,emprestimo_remover
 
 urlpatterns = [
@@ -34,6 +34,7 @@ urlpatterns = [
 
     #Emprestimos
     path('emprestimo/',emprestimo, name="emprestimo"),
+    path('devolver/<str:codigo>/',devolver, name="devolver"),
     path('listar/', emprestimo_listar, name="emprestimo_listar"),
     path('novo/',emprestimo_cadastro, name="emprestimo_cadastro"),
     path('atualizar_emprestimo/<int:id>/', emprestimo_editar, name='emprestimo_editar'),

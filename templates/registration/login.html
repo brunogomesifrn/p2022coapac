@@ -11,7 +11,8 @@ Pagina de Objetos
 {% block conteudo %}
 <form method="post">
     {% csrf_token %}
-    {{form}}
+    <p>Matrícula: <input type="text" name="matricula" /></p>
+    <p>Senha: <input type="password" name="senha" /></p>
     <p><input type="submit" value="Autenticar" /></p>
     </form>
 {% endblock %}

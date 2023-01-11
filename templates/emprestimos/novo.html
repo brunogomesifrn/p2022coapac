@@ -1,5 +1,7 @@
 {% extends "bases\base.html" %}
 
+{% load widget_tweaks %}
+
 {% block titulo %}
 Novo
 {% endblock %}
@@ -9,29 +11,53 @@ Novo
 Cadastro de Empréstimo
 {% endblock %}
 
+
 {% block conteudo %}
+
+
+
 <div class="row">
     <div class="col-md-6 offset-md-3 mb-5">
       <!--Formulario para novo cadastro-->
-      <form class="needs-validation" novalidate>
+      <form method="post">
+        {% csrf_token %}
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="primeiroNome">Objeto</label>
-            <input type="text" class="form-control" id="primeiroNome" placeholder="" value="" required>
+            <label for="primeiroNome">Matrícula</label>
+            {% render_field form.matricula class="form-control" id="primeiroNome" placeholder="" value=""  %}
+            <!-- <input type="text" class="form-control" id="primeiroNome" placeholder="" value="" required> -->
             <div class="invalid-feedback">
               Por favor, insira o nome do objeto.
             </div>
           </div>
-          <div class="col-md-6 mb-3">
+          <!-- <div class="col-md-6 mb-3">
             <label for="sobrenome">Tipo</label>
             <input type="text" class="form-control" id="sobrenome" placeholder="" value="" required>
             <div class="invalid-feedback">
               or favor, insira o tipo do objeto.
             </div>
-          </div>
+          </div> -->
         </div>
 
+        <div class="row">
         <div class="mb-3">
+          <label for="data"></label>Observação</label>
+          <div class="input-group">
+            {% render_field form.observacao class="form-control" id="primeiroNome" placeholder="" value=""  %}
+            <div class="invalid-feedback" style="width: 100%;">
+              Por favor, insira a data de empréstimo.
+            </div>
+          </div>
+        </div>
+      </div>
+
+        
+        <div class="mb-3">
+          <label for="responsavel">Selecione o objeto</label>
+            {% render_field form.objeto class=""  %}
+        </div>
+
+        <!-- <div class="mb-3">
           <label for="data">Data de empréstimo</label>
           <div class="input-group">
             <input type="date" class="form-control" id="data"  required>
@@ -67,7 +93,7 @@ Cadastro de Empréstimo
               A quantidade de objetos é obrigatório.
             </div>
           </div>
-        </div>
+        </div> -->
         
         <hr class="mb-4">
         <div class="mb-4 d-flex justify-content-center">

@@ -2,9 +2,12 @@
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1">COAPAC</span>
       <ul class="nav justify-content-end">
+        {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Sair</a>
         </li>
+        {% endif %}
+
     </div>
   </nav>
 
