@@ -5,10 +5,94 @@ Objetos
 {% endblock %}
 
 {% block header%}
-Pagina de Tipos de Objetos
+Tipos de Objetos
 {% endblock %}
 
 {% block conteudo %}
+<section>
+    <div class="row mb-1">
+        <!--Título desse linha-->
+        <div class="col">
+            <h3 class="mt-3"><span class="fw-normal">Cadastro</span></h3>
+        </div>  
+    </div>
 
+        <div class="row mb-5">
+        <div class="col mb-4">
+          <!--Card para novos cadastros de tipos objetos-->
+          <div class="card h-90 w-100">
+            <div class="card-body text-center">
+              <div class="icon icon-xl mx-auto mb-4 py-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-collection" viewBox="0 0 16 16">
+                    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+                  </svg>
+              </div>
+              <a href="{% url 'tipo_cadastrar' %}" class="stretched-link" ><h4 class="mt-3"><span class="fw-normal">Novo</span></h4></a>
+              <p class="m-4">Cadastre um novo tipo de objeto</p>
+            </div>
+          </div>
+        </div>
+        </div>
 
+   <!--Botão de pesquisa-->
+   <div class="row my-3"> 
+    <div class="col-md-8">
+      <h3 ><span class="fw-normal">Listagem</span></h3>
+    </div>
+    <div class="col-md-4 ">
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
+      <div class="row">
+      <div class="col mb-5 ">
+        <!--Tabela de listagem-->
+        
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col-9">Nome</th>
+                <th class="text-end" scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tipo in listar_tipo %}
+              <tr>
+                <th scope="col-2">{{tipo.nome}}</th>
+                <td  class="text-end"><div>
+                  <a href="{% url 'tipo_editar' tipo.id %}"><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="text-500 fas fa-edit"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg></span></button></a>
+                  <a href="{% url 'tipo_remover' tipo.id%}"><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="text-500 fas fa-trash-alt"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                  </svg></span></button></a>
+                </div></td>
+              </tr>
+              {% empty %}
+
+              <p>Nenhum objeto cadastrado</p>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block migalhas1 %}
+<nav class= "m-3" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'perfil'%}">Início</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Tipos</li>
+    </ol>
+  </nav>
 {% endblock %}

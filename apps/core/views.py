@@ -153,9 +153,9 @@ def autenticacao(request):
             login(request, user)
             return redirect('perfil')
         else:
-            return render(request, 'registration/login.html')
+            return render(request, 'registration\login.html')
     else:
-        return render(request, 'registration/login.html')
+        return render(request, 'registration\login.html')
 
 def desconectar(request):
     logout(request)

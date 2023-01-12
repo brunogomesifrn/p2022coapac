@@ -10,6 +10,16 @@ Cadastro de Empréstimo
 {% endblock %}
 
 {% block conteudo %}
+<section>
+    <div class="row text-center">
+        <form method="POST">
+            {% csrf_token %}
+            {{form}}
+            <br/>
+            <button class="m-3" type="submit">Salvar</button>
+        </form>
+    </div>
+</section>
 <div class="row">
     <div class="col-md-6 offset-md-3 mb-5">
       <!--Formulario para novo cadastro-->

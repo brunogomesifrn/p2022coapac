@@ -9,6 +9,14 @@ Pagina de Objetos
 {% endblock %}
 
 {% block conteudo %}
-
-
+<section>
+    <div class="row text-center">
+        <form method="POST">
+            {% csrf_token %}
+            {{form}}
+            <br/>
+            <button class="m-3" type="submit">Salvar</button>
+        </form>
+    </div>
+</section>
 {% endblock %}

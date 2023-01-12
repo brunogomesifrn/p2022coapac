@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from .models import Tipo, Objeto, Usuario, Emprestimo
+
 class FormTipo(ModelForm):
     class Meta():
         model = Tipo

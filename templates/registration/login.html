@@ -1,17 +1,18 @@
 {% extends "bases\base.html" %}
 
 {% block titulo %}
-Objetos
+Login/Coapac
 {% endblock %}
 
 {% block header%}
-Pagina de Objetos
+Pagina de Login
 {% endblock %}
 
 {% block conteudo %}
 <form method="post">
     {% csrf_token %}
-    {{form}}
+    {{user.username}}
+    {{user.password}}
     <p><input type="submit" value="Autenticar" /></p>
-    </form>
+</form>
 {% endblock %}

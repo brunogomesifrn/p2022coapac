@@ -1,0 +1,34 @@
+{% extends "bases\base.html" %}
+
+{% block titulo %}
+Cadastro dos Tipos de Objetos
+{% endblock %}
+
+{% block header%}
+Cadastro de novos tipos de objetos
+{% endblock %}
+
+{% block conteudo %}
+<section>
+                                                                                                                    
+    <div class="row text-center">
+        <form method="POST">
+            {% csrf_token %}
+            {{form}}
+            <br/>
+            <button class="m-3" type="submit">Salvar</button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block migalhas1 %}
+<nav class= "m-3" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'perfil'%}">Início</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'tipo_listar'%}">Tipos</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Cadastro de Tipos</li>
+    </ol>
+  </nav>
+{% endblock %}

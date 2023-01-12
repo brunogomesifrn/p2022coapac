@@ -27,7 +27,6 @@ class Usuario(AbstractUser):
 
     class Meta:
         permissions = [
-            ("aluno","Permissão para usuários Aluno, pode consultar situação de empréstimos"),
             ("servidor","Permissão para usuários Servidor, pode consultar situação de empréstimos"),
             ("coapac","Permissão para usuários COAPAC, pode gerenciar empréstimos, objetos, gerenciar tipos_objetos, gerenciar status e gerar relatórios"),
             ("administrador","Permissão para usuários Administrador, pode gerenciar empréstimos, objetos, gerenciar tipos_objetos, gerenciar status e gerar relatórios")
