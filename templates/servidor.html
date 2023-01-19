@@ -1,0 +1,89 @@
+{% extends "bases\base.html" %}
+
+{% block titulo %}
+Listagem
+{% endblock %}
+
+{% block header%}
+Empréstimos realizados pelo Servidor
+{% endblock %}
+
+{% block conteudo %}
+<section>
+    <!--Botão de pesquisa-->
+    <div class="row"> 
+      <div class="col-md-4">
+        <label for="objeto">Matrícula do servidor:</label>
+        <form class="d-flex" method="post">
+          {% csrf_token %}
+          <input class="form-control me-2" type="search" placeholder="Somente números" aria-label="Search" name="usuario" value="{{matricula_digitada}}">
+          <button class="btn" type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 my-5 ">
+        <!--Tabela de listagem-->
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col-2">Matrícula</th>
+                <th scope="col-2">Nome</th>
+                <th scope="col-2">objeto</th>
+                <th scope="col-1">Prazo</th>
+                <th scope="col-2">Data de Empréstimo</th>
+                <th scope="col-2">Data de Devolução</th>
+                <th scope="col-2">Status</th>
+                <th class="text-end" scope="col">Responsável</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for emprestimo in listar_emprestimo %}
+              <tr>
+                <td scope="col-2">{{emprestimo.matricula}}</td>
+                <td scope="col-2">{{emprestimo.nome_servidor}}</td>
+                <td scope="col-2">{{emprestimo.objeto}}</td>
+                <td scope="col-1">{{emprestimo.objeto.prazo}}</td>
+                <td scope="col-2">{{emprestimo.data_emprestimo}}</td>
+                <td scope="col-2">
+                  {% if emprestimo.data_devolucao %}
+                  {{emprestimo.data_devolucao}}
+                  {% else %}
+                  -
+                  {% endif %}
+                </td>
+                <td scope="col-2">
+                  {% if emprestimo.data_devolucao %}
+                  Devolvido
+                  {% else %}
+                  Emprestado
+                  {% endif %}
+                </th>
+                <td class="text-end" scope="col">{{emprestimo.responsavel}}</td>
+                
+              </tr>
+              {% empty %}
+              <tr>
+                <td scope="col-2" colspan="4">Nenhum objeto emprestado</td>
+                
+              </tr>
+              
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+{% endblock %}
+
+{% block migalhas1 %}
+<nav class= "m-3" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'login'%}">Login</a> /</li>
+    </ol>
+  </nav>
+{% endblock %}

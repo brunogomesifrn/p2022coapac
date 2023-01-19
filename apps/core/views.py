@@ -252,9 +252,27 @@ def devolucao(request):
     return render(request, 'emprestimos/devolucao.html', contexto)
 
 #Devolve o empréstimo
+@login_required
 def devolver(request, codigo):
         emprestimo = Emprestimo.objects.get(pk=codigo)
         emprestimo.data_devolucao = date.today()
         emprestimo.save()
         return redirect('emprestimo')
 
+#Listagem para servidores 
+def servidor(request):
+    emprestimos = []
+    matricula_digitada=""
+    if request.POST:
+        if request.POST['usuario']=='':
+            emprestimos = Emprestimo.objects.all()
+        else:
+            matricula_digitada = request.POST['usuario']
+            emprestimos = Emprestimo.objects.filter(matricula = matricula_digitada).order_by('data_emprestimo')
+    else:
+        emprestimos = Emprestimo.objects.all().order_by('data_emprestimo')
+    contexto ={
+        'listar_emprestimo': emprestimos,
+        'matricula_digitada': matricula_digitada
+    }
+    return render(request, 'servidor.html', contexto)
