@@ -38,11 +38,43 @@ def registro(request):
 #Crud de obejtos
 @login_required
 def objeto_listar(request):
-    objeto = Objeto.objects.all()
+    nome_digitado = ''
+    objeto = []
+    if request.POST:
+        if request.POST['nome']=='':
+            objeto = Objeto.objects.all().order_by('nome_objeto')
+        else:
+            nome_digitado = request.POST['nome']
+            objeto = Objeto.objects.filter(nome_objeto__contains=nome_digitado).order_by('nome_objeto')
+    else:
+        objeto = Objeto.objects.all().order_by('nome_objeto')
     contexto ={
-        'listar_objetos': objeto
+        'listar_objetos': objeto,
+        'nome_digitado': nome_digitado
     }
     return render(request, 'objetos/objetos_lista.html', contexto)
+
+
+
+
+'''
+emprestimos = []
+    matricula_digitada=""
+    if request.POST:
+        if request.POST['usuario']=='':
+            emprestimos = Emprestimo.objects.all()
+        else:
+            matricula_digitada = request.POST['usuario']
+            emprestimos = Emprestimo.objects.filter(matricula = matricula_digitada).filter(data_devolucao = None).order_by('data_emprestimo')
+    else:
+        emprestimos = Emprestimo.objects.all().order_by('data_emprestimo')
+    contexto ={
+        'listar_emprestimo': emprestimos,
+        'matricula_digitada': matricula_digitada
+    }
+    return render(request, 'emprestimos/devolucao.html', contexto)
+
+'''
 
 @login_required
 def objeto_cadastrar(request):
@@ -231,7 +263,7 @@ def listar_devolução(request):
             emprestimos = Emprestimo.objects.all()
         else:
             matricula_digitada = request.POST['usuario']
-            emprestimos = Emprestimo.objects.filter(matricula = matricula_digitada).filter(data_devolucao = None).order_by('data_emprestimo')
+            emprestimos = Emprestimo.objects.filter(matricula__contains = matricula_digitada).filter(data_devolucao = None).order_by('data_emprestimo')
     else:
         emprestimos = Emprestimo.objects.all().order_by('data_emprestimo')
     contexto ={
