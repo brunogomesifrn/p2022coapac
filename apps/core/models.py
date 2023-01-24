@@ -2,17 +2,17 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class Tipo(models.Model):
-    nome = models.CharField('Nome', max_length=100)
+    nome_tipo = models.CharField('Nome', max_length=100)
     def __str__(self):
-        return self.nome
+        return self.nome_tipo
 
 class Objeto(models.Model):
-    nome = models.CharField('Nome', max_length=100) 
+    nome_objeto = models.CharField('Nome', max_length=100) 
     prazo = models.IntegerField("Prazo")
     tipos = models.ForeignKey(Tipo, on_delete=models.PROTECT)
     
     def __str__(self):
-        return self.nome
+        return self.nome_objeto
 
 class Usuario(AbstractUser):
     matricula = models.CharField('Matricula',max_length=14, primary_key=True)
@@ -28,7 +28,6 @@ class Usuario(AbstractUser):
 
     class Meta:
         permissions = [
-            ("aluno","Permissão para usuários Aluno, pode consultar situação de empréstimos"),
             ("servidor","Permissão para usuários Servidor, pode consultar situação de empréstimos"),
             ("coapac","Permissão para usuários COAPAC, pode gerenciar empréstimos, objetos, gerenciar tipos_objetos, gerenciar status e gerar relatórios"),
             ("administrador","Permissão para usuários Administrador, pode gerenciar empréstimos, objetos, gerenciar tipos_objetos, gerenciar status e gerar relatórios")
@@ -36,10 +35,11 @@ class Usuario(AbstractUser):
         ]  
 
 class Emprestimo(models.Model):
-    matricula = models.CharField("'Matricula", max_length=15)
-    data_emprestimo = models.DateField(auto_now_add=True)
-    data_devolucao = models.DateField("Data de Devolução", null=True)
-    observacao = models.TextField("Observação")
+    matricula = models.CharField("Matricula", max_length=15)
+    nome_servidor = models.CharField('Nome', max_length=100)
+    data_emprestimo = models.DateTimeField(auto_now_add=True)
+    data_devolucao = models.DateTimeField("Data de Devolução", null=True)
+    observacao = models.TextField("Observação", null=True, blank=True)
     responsavel = models.ForeignKey(Usuario, on_delete=models.PROTECT)
     objeto = models.ForeignKey(Objeto, on_delete=models.PROTECT)
 

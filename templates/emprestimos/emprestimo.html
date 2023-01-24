@@ -62,7 +62,7 @@ Empréstimos
                 <div class="col-auto">
                   <p class="text-muted text-sm mt-2">Total:</p>
                 </div>
-                <div class="col text-end text-lg">1253</div>
+                <div class="col text-end text-lg">20</div>
               </div>
               <div class="progress">
                 <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width:78%">                           </div>
@@ -78,7 +78,7 @@ Empréstimos
               <h5 class="card-heading"><span class="fw-normal">Devolvidos</span></h5>
             </div>
             <div class="card-body">
-              <h2 class="mb-3">-323</h2>
+              <h2 class="mb-3">-15</h2>
               <div class="row">
                 <div class="col-auto">
                   <p class="text-muted text-sm mt-2">Total:</p>
@@ -99,7 +99,7 @@ Empréstimos
               <h5 class="card-heading"><span class="fw-normal">Pendentes</span></h5>
             </div>
             <div class="card-body">
-              <h2 class="mb-3">+158</h2>
+              <h2 class="mb-3">+5</h2>
               <div class="row">
                 <div class="col-auto">
                   <p class="text-muted text-sm mt-2">Total:</p>
@@ -127,72 +127,30 @@ Empréstimos
               <table id="datatables-dashboard-projects " class="table table-hover my-0">
                 <thead>
                   <tr>
-                    <th>Nome</th>
-                    <th>objeto</th>
-                    <th>Data de Empréstimo</th>
-                    <th>Data de Devolução</th>
-                    <th>Status</th>
-                    <th >Responsável</th>
+                    <th scope="col-2">Matrícula</th>
+                    <th scope="col-2">Nome</th>
+                    <th scope="col-2">Objeto</th>
+                    <th scope="col-2">Status</th>
+                    <th scope="col-2">Responsável</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Project Apollo</td>
-                    <td>Piloto</td>
-                    <td>01/01/2021</td>
-                    <td>31/06/2021</td>
-                    <td><span class="badge bg-success">Devolvido</span></td>
-                    <td>Carl Jenkins</td>
-                  </tr>
-                  <tr>
-                    <td>Project Fireball</td>
-                    <td>Projetor</td>
-                    <td>01/01/2021</td>
-                    <td>31/06/2021</td>
-                    <td><span class="badge bg-danger">Atrasado</span></td>
-                    <td>Bertha Martin</td>
-                  </tr>
-                  <tr>
-                    <td>Project Hades</td>
-                    <td>Projetor</td>
-                    <td>01/01/2021</td>
-                    <td>31/06/2021</td>
-                    <td><span class="badge bg-success">Devolvido</span></td>
-                    <td>Stacie Hall</td>
-                  </tr>
-                  <tr>
-                    <td>Project Nitro</td>
-                    <td>Piloto</td>
-                    <td>01/01/2021</td>
-                    <td>31/06/2021</td>
-                    <td><span class="badge bg-primary">Novo</span></td>
-                    <td>Carl Jenkins</td>
-                  </tr>
-                  <tr>
-                    <td>Project Phoenix</td>
-                    <td>Apagador</td>
-                    <td>01/01/2021</td>
-                    <td>31/06/2021</td>
-                    <td><span class="badge bg-success">Devolvido</span></td>
-                    <td>Bertha Martin</td>
-                  </tr>
-                  <tr>
-                    <td>Project X</td>
-                    <td>Apagador</td>
-                    <td>01/01/2021</td>
-                    <td>31/06/2021</td>
-                    <td><span class="badge bg-primary">Novo</span></td>
-                    <td>Stacie Hall</td>
-                  </tr>
-                  <tr>
-                    <td>Project Fireball</td>
-                    <td>Projetor</td>
-                    <td>01/01/2021</td>
-                    <td>31/06/2021</td>
-                    <td><span class="badge bg-danger">Atrasado</span></td>
-                    <td>Bertha Martin</td>
-                  </tr>
-                </tbody>
+                  <tbody>
+                    {% for emprestimo in listar_emprestimo %}
+                    <tr>
+                      <td scope="col-2">{{emprestimo.matricula}}</td>
+                      <td scope="col-2">{{emprestimo.nome_servidor}}</td>
+                      <td scope="col-2">{{emprestimo.objeto}}</td>
+                      <td scope="col-2">Status</th>
+                      <td scope="col-2">{{emprestimo.responsavel}}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                      <td scope="col-2" colspan="4">Nenhum objeto emprestado</td>
+                      
+                    </tr>
+                    
+                    {% endfor %}
+                  </tbody>
               </table>
             </div>
           </div>
@@ -212,4 +170,13 @@ Empréstimos
             
     </div>
   </section>
+{% endblock %}
+
+{% block migalhas1 %}
+<nav class= "m-3" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'perfil'%}">Início</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Empréstimos</li>
+    </ol>
+  </nav>
 {% endblock %}

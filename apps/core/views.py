@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import Tipo, Objeto, Usuario, Emprestimo
 from .forms import FormTipo, FormObjeto, FormUsuario, FormEmprestimo
+from datetime import date
 
 #Autenticação
 def autenticacao(request):
@@ -14,20 +15,20 @@ def autenticacao(request):
             login(request, user)
             return redirect('perfil')
         else:
-            return render(request, 'registration/login.html')
+            return render(request, 'registration\login.html')
     else:
-        return render(request, 'registration/login.html')
+        return render(request, 'registration\login.html')
 
 def desconectar(request):
     logout(request)
     return redirect('login')
 
-@login_required
+
 def registro(request):
     form = FormUsuario(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect('login')
+        return redirect('usuario_listar')
     contexto = {
         'form': form
     }
@@ -37,11 +38,43 @@ def registro(request):
 #Crud de obejtos
 @login_required
 def objeto_listar(request):
-    objeto = Objeto.objects.all()
+    nome_digitado = ''
+    objeto = []
+    if request.POST:
+        if request.POST['nome']=='':
+            objeto = Objeto.objects.all().order_by('nome_objeto')
+        else:
+            nome_digitado = request.POST['nome']
+            objeto = Objeto.objects.filter(nome_objeto__contains=nome_digitado).order_by('nome_objeto')
+    else:
+        objeto = Objeto.objects.all().order_by('nome_objeto')
     contexto ={
-        'listar_objetos': objeto
+        'listar_objetos': objeto,
+        'nome_digitado': nome_digitado
     }
     return render(request, 'objetos/objetos_lista.html', contexto)
+
+
+
+
+'''
+emprestimos = []
+    matricula_digitada=""
+    if request.POST:
+        if request.POST['usuario']=='':
+            emprestimos = Emprestimo.objects.all()
+        else:
+            matricula_digitada = request.POST['usuario']
+            emprestimos = Emprestimo.objects.filter(matricula = matricula_digitada).filter(data_devolucao = None).order_by('data_emprestimo')
+    else:
+        emprestimos = Emprestimo.objects.all().order_by('data_emprestimo')
+    contexto ={
+        'listar_emprestimo': emprestimos,
+        'matricula_digitada': matricula_digitada
+    }
+    return render(request, 'emprestimos/devolucao.html', contexto)
+
+'''
 
 @login_required
 def objeto_cadastrar(request):
@@ -121,18 +154,35 @@ def tipo_remover(request,id):
 @login_required
 #Crud de emprestimos
 def emprestimo_listar(request):
-    emprestimo = Tipo.objects.all()
+    emprestimos = []
+    matricula_digitada=""
+    if request.POST:
+        if request.POST['usuario']=='':
+            emprestimos = Emprestimo.objects.all()
+        else:
+            matricula_digitada = request.POST['usuario']
+            emprestimos = Emprestimo.objects.filter(matricula = matricula_digitada.strip()).order_by('data_emprestimo')
+    else:
+        emprestimos = Emprestimo.objects.all().order_by('-data_emprestimo')
     contexto ={
-        'listar_emprestimo': emprestimo
+        'listar_emprestimo': emprestimos,
+        'matricula_digitada': matricula_digitada
     }
-    return render(request, 'emprestimos/listar.html')
+
+    # VERIFICAR STATUS
+
+    return render(request, 'emprestimos/listar.html', contexto)
+    
 
 @login_required
 def emprestimo_cadastro(request):
     form = FormEmprestimo(request.POST or None)
 
     if form.is_valid(): 
-        form.save()
+        emprestimo = form.save(commit=False)
+        emprestimo.responsavel = request.user
+        emprestimo.data_emprestimo = date.today()
+        emprestimo.save()
         return redirect('emprestimo')
     contexto = {
         'form' : form
@@ -143,7 +193,7 @@ def emprestimo_cadastro(request):
 def emprestimo_editar(request,id):
     emprestimo = Emprestimo.objects.get(pk=id)
 
-    form = FormEmprestimo(request.POST or None, instance=tipo)
+    form = FormEmprestimo(request.POST or None, instance=emprestimo)
 
     if form.is_valid():
         form.save()
@@ -162,7 +212,11 @@ def emprestimo_remover(request,id):
 
 @login_required
 def emprestimo(request):
-    return render(request, 'emprestimos/emprestimo.html')
+    emprestimo = Emprestimo.objects.all()
+    contexto ={
+        'listar_emprestimo': emprestimo
+    }
+    return render(request, 'emprestimos/emprestimo.html', contexto)
 
 @login_required
 #crud de usuarios
@@ -171,7 +225,22 @@ def usuario_listar(request):
     contexto ={
         'listar_usuarios': usuario
     }
-    return render(request, 'usuario/usuario_listar.html')
+    return render(request, 'usuario/usuario_listar.html', contexto)
+
+@login_required
+def usuario_editar(request,id):
+    usuario = Usuario.objects.get(pk=id)
+
+    form = FormUsuario(request.POST or None, instance=usuario)
+
+    if form.is_valid():
+        form.save()
+        return redirect('usuario_listar')
+
+    contexto = {
+        'form' : form 
+    }
+    return render(request, 'registration/registro.html', contexto)
 
 @login_required
 def usuario_remover(request,id):
@@ -186,6 +255,24 @@ def perfil(request):
 
 #Lista os empréstimos sem devolução do usuário
 @login_required
+def listar_devolução(request):
+    emprestimos = []
+    matricula_digitada=""
+    if request.POST:
+        if request.POST['usuario']=='':
+            emprestimos = Emprestimo.objects.all()
+        else:
+            matricula_digitada = request.POST['usuario']
+            emprestimos = Emprestimo.objects.filter(matricula__contains = matricula_digitada).filter(data_devolucao = None).order_by('data_emprestimo')
+    else:
+        emprestimos = Emprestimo.objects.all().order_by('data_emprestimo')
+    contexto ={
+        'listar_emprestimo': emprestimos,
+        'matricula_digitada': matricula_digitada
+    }
+    return render(request, 'emprestimos/devolucao.html', contexto)
+
+@login_required
 def devolucao(request):
     emprestimos = []
     if request.POST:
@@ -197,9 +284,27 @@ def devolucao(request):
     return render(request, 'emprestimos/devolucao.html', contexto)
 
 #Devolve o empréstimo
+@login_required
 def devolver(request, codigo):
         emprestimo = Emprestimo.objects.get(pk=codigo)
-        emprestimo.data_devolucao = datetime.date.today()
+        emprestimo.data_devolucao = date.today()
         emprestimo.save()
         return redirect('emprestimo')
 
+#Listagem para servidores 
+def servidor(request):
+    emprestimos = []
+    matricula_digitada=""
+    if request.POST:
+        if request.POST['usuario']=='':
+            emprestimos = Emprestimo.objects.all()
+        else:
+            matricula_digitada = request.POST['usuario']
+            emprestimos = Emprestimo.objects.filter(matricula = matricula_digitada).order_by('data_emprestimo')
+    else:
+        emprestimos = Emprestimo.objects.all().order_by('data_emprestimo')
+    contexto ={
+        'listar_emprestimo': emprestimos,
+        'matricula_digitada': matricula_digitada
+    }
+    return render(request, 'servidor.html', contexto)

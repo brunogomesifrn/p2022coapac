@@ -6,12 +6,12 @@ from .models import Tipo, Objeto, Usuario, Emprestimo
 class FormTipo(ModelForm):
     class Meta():
         model = Tipo
-        fields = ['nome']
+        fields = ['nome_tipo']
 
 class FormObjeto(ModelForm):
     class Meta():
         model = Objeto
-        fields = ['nome', 'prazo', 'tipos']
+        fields = ['nome_objeto', 'prazo', 'tipos']
         widgets = {
             'tipo': forms.RadioSelect(), 
         }
@@ -25,7 +25,7 @@ class FormUsuario(UserCreationForm):
 class FormEmprestimo(ModelForm):
     class Meta():
         model=Emprestimo
-        fields=['matricula', 'observacao', 'objeto']
+        fields=['matricula', 'nome_servidor', 'observacao', 'objeto']
         widgets = {
-            'objeto': forms.CheckboxSelectMultiple(),
+            'objeto': forms.RadioSelect(), 
             }

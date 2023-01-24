@@ -1,0 +1,57 @@
+{% extends "bases\base.html" %}
+{% load widget_tweaks %}
+
+{% block titulo %}
+Cadastro de Categoria de Objetos
+{% endblock %}
+
+{% block header%}
+Cadastro de novas categorias
+{% endblock %}
+
+{% block conteudo %}
+<section>
+  <div class="row">
+    <div class="col-md-8 offset-md-2 mb-5">
+      <!--Formulario para novo cadastro-->
+      <form method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="Nome">Nome</label>
+            {% render_field form.nome_tipo class="form-control" id="Nome"  %}
+            <div class="invalid-feedback">
+              Por favor, insira o nome da categoria.
+            </div>
+          </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+        <div class="mb-3">
+          
+        </div>
+      </div>
+
+       <hr class="mb-4">
+        <div class="mb-4 d-flex justify-content-center">
+          <button class="btn btn-block position-relative" type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    
+</section>
+{% endblock %}
+
+{% block migalhas1 %}
+<nav class= "m-3" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'perfil'%}">Início</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'tipo_listar'%}">Tipos</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Cadastro de Tipos</li>
+    </ol>
+  </nav>
+{% endblock %}

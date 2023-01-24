@@ -1,18 +1,72 @@
 {% extends "bases\base.html" %}
+{% load widget_tweaks %}
 
 {% block titulo %}
-Objetos
+Login/Coapac
 {% endblock %}
 
 {% block header%}
-Pagina de Objetos
+Pagina de Login
 {% endblock %}
 
 {% block conteudo %}
-<form method="post">
+<section>
+    <div class="row">
+      <div class="col-md-4 offset-md-4 mb-5">
+        <!--Formulario para login -->
+        <form method="post">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="matricula">Matrícula</label>
+              <input type="text" name="matricula" class="form-control" id="matricula" />
+              <div class="invalid-feedback">
+                Por favor, insira a sua matrícula.
+              </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="SENHA">Senha</label>
+                  <input type="password" name="senha" class="form-control" id="senha" />
+                  <div class="invalid-feedback">
+                    Por favor, insira a sua senha.
+                  </div>
+                </div>
+                </div>
+          </div>
+  
+          <div class="row">
+          <div class="mb-3">
+            
+          </div>
+        </div>
+  
+         <hr class="mb-4">
+          <div class="mb-4 d-flex justify-content-center">
+            <button class="btn btn-block position-relative" type="submit">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+      
+  </section>
+<!-- <form method="post">
     {% csrf_token %}
+    {{user.username}}
+    {{user.password}}
     <p>Matrícula: <input type="text" name="matricula" /></p>
     <p>Senha: <input type="password" name="senha" /></p>
     <p><input type="submit" value="Autenticar" /></p>
-    </form>
+</form> -->
+{% endblock %}
+
+
+{% block migalhas1 %}
+<nav class= "m-3" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'servidor'%}">Página para os servidores</a> /</li>
+    </ol>
+  </nav>
 {% endblock %}
