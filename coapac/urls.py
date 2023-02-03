@@ -18,7 +18,7 @@ from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 from apps.core.views import emprestimo, devolucao, devolver, emprestimo_listar,emprestimo_remover, emprestimo_cadastro, emprestimo_editar, perfil, autenticacao, desconectar, registro, usuario_listar,usuario_remover
 from apps.core.views import objeto_cadastrar, obejto_remover,objeto_editar, objeto_listar, tipo_cadastrar,tipo_editar,tipo_listar, tipo_remover, emprestimo_editar,emprestimo_remover, usuario_editar, listar_devolução
-from apps.core.views import servidor
+from apps.core.views import servidor, cadastro_manual
 
 urlpatterns = [
     #Objetos
@@ -57,4 +57,5 @@ urlpatterns = [
     path('usuario_editar/<int:id>/', usuario_editar, name='usuario_editar'),
     path('usuario_listar/', usuario_listar, name='usuario_listar'),
     path('deletar_usuario/<int:id>/', usuario_remover, name='usuario_remover'),
+    path('cadastro_manual/', cadastro_manual),
 ]

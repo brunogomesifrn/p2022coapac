@@ -41,10 +41,10 @@ def objeto_listar(request):
     nome_digitado = ''
     objeto = []
     if request.POST:
-        if request.POST['nome']=='':
+        if request.POST['nome_objeto']=='':
             objeto = Objeto.objects.all().order_by('nome_objeto')
         else:
-            nome_digitado = request.POST['nome']
+            nome_digitado = request.POST['nome_objeto']
             objeto = Objeto.objects.filter(nome_objeto__contains=nome_digitado).order_by('nome_objeto')
     else:
         objeto = Objeto.objects.all().order_by('nome_objeto')
@@ -112,9 +112,19 @@ def obejto_remover(request,id):
 @login_required
 #Crud de tipos de objetos
 def tipo_listar(request):
-    tipo = Tipo.objects.all()
+    tipo = []
+    nome_digitada=""
+    if request.POST:
+        if request.POST['nome_tipo']=='':
+            tipo = Tipo.objects.all()
+        else:
+            nome_digitada = request.POST['nome_tipo']
+            tipo = Tipo.objects.filter(nome_tipo=nome_digitada).order_by('nome_tipo')
+    else:
+        tipo = Tipo.objects.all()
     contexto ={
-        'listar_tipo': tipo
+        'listar_tipo': tipo,
+        'nome_digitada': nome_digitada
     }
     return render(request, 'tipo_objetos/tipo_lista.html', contexto)
 
@@ -221,9 +231,19 @@ def emprestimo(request):
 @login_required
 #crud de usuarios
 def usuario_listar(request):
-    usuario = Usuario.objects.all()
+    usuario = []
+    nome_digitada=""
+    if request.POST:
+        if request.POST['nome']=='':
+            usuario = Usuario.objects.all()
+        else:
+            nome_digitada = request.POST['nome']
+            usuario = Usuario.objects.filter(nome=nome_digitada.strip()).order_by('matricula')
+    else:
+        usuario = Usuario.objects.all().order_by('matricula')
     contexto ={
-        'listar_usuarios': usuario
+        'listar_usuario': usuario,
+        'nome_digitada': nome_digitada
     }
     return render(request, 'usuario/usuario_listar.html', contexto)
 
@@ -263,7 +283,7 @@ def listar_devolução(request):
             emprestimos = Emprestimo.objects.all()
         else:
             matricula_digitada = request.POST['usuario']
-            emprestimos = Emprestimo.objects.filter(matricula__contains = matricula_digitada).filter(data_devolucao = None).order_by('data_emprestimo')
+            emprestimos = Emprestimo.objects.filter(matricula__contains = matricula_digitada.strip()).filter(data_devolucao = None).order_by('data_emprestimo')
     else:
         emprestimos = Emprestimo.objects.all().order_by('data_emprestimo')
     contexto ={
@@ -277,7 +297,7 @@ def devolucao(request):
     emprestimos = []
     if request.POST:
         matricula_digitada = request.POST['usuario']
-        emprestimos = Emprestimo.objects.filter(matricula = matricula_digitada).filter(devolucao = None)
+        emprestimos = Emprestimo.objects.filter(matricula = matricula_digitada.strip()).filter(devolucao = None)
     contexto = {
         'emprestimos': emprestimos
     }
@@ -308,3 +328,15 @@ def servidor(request):
         'matricula_digitada': matricula_digitada
     }
     return render(request, 'servidor.html', contexto)
+
+def cadastro_manual(request):
+    user = Usuario.objects.create_user(
+        username='admin',
+        email='admin@email.com',
+        matricula='123456789',
+        nome='Administrador',
+        password='admin12345',
+        telefone=000000,
+        is_superuser=True)
+    user.save()
+    return redirect('perfil')

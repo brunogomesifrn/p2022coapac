@@ -35,14 +35,16 @@ Categoria de Objetos
         </div>
 
    <!--Botão de pesquisa-->
-   <div class="row my-3"> 
+   <div class="row"> 
     <div class="col-md-8">
-      <h3 ><span class="fw-normal">Listagem</span></h3>
+      <h3 ><span class="fw-normal">Listagem de Usuários</span></h3>
     </div>
-    <div class="col-md-4 ">
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn" type="submit">Search</button>
+    <div class="col-md-4">
+      <form class="d-flex" method="post">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Somente números" aria-label="Search" name="nome_tipo" value="{{nome_digitada}}">
+        
+        <button class="btn" type="submit">Buscar</button>
       </form>
     </div>
   </div>

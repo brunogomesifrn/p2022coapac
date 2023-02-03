@@ -36,9 +36,11 @@ Pagina de Usuários
         <h3 ><span class="fw-normal">Listagem de Usuários</span></h3>
       </div>
       <div class="col-md-4 ">
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn" type="submit">Search</button>
+        <form class="d-flex" method="post">
+          {% csrf_token %}
+          <input class="form-control me-2" type="search" placeholder="Nome do Usuário" aria-label="Search" name="nome" value="{{nome_digitada}}">
+          
+          <button class="btn" type="submit">Buscar</button>
         </form>
       </div>
     </div>
@@ -58,7 +60,7 @@ Pagina de Usuários
               </tr>
             </thead>
             <tbody>
-              {% for usuario2 in listar_usuarios %}
+              {% for usuario2 in listar_usuario %}
               <tr>
                 <td scope="col-2">{{usuario2.nome}}</td>
                 <td scope="col-4">{{usuario2.email}}</td>
